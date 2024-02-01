@@ -61,13 +61,15 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:0.12.3")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
+
+
     implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
     kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("io.github.jan-tennert.supabase:storage-kt:2.0.4")
     implementation("io.ktor:ktor-client-cio:2.3.7")
-
+    implementation("com.h2database:h2")
     //oauth2 소셜로그인
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
@@ -82,4 +84,8 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.bootBuildImage {
+    builder.set("paketobuildpacks/builder-jammy-base:latest")
 }
