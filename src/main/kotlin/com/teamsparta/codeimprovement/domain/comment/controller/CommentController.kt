@@ -1,8 +1,8 @@
 package com.teamsparta.codeimprovement.domain.comment.controller
 
-import com.temsparta.codeimprovement.domain.comment.dto.response.ApiResponseDto
-import com.temsparta.codeimprovement.domain.comment.service.CommentService
-import com.temsparta.codeimprovement.domain.infra.security.UserPrincipal
+import com.teamsparta.codeimprovement.domain.comment.service.CommentService
+import com.teamsparta.codeimprovement.domain.comment.dto.response.ApiResponseDto
+import com.teamsparta.codeimprovement.domain.infra.security.UserPrincipal
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
