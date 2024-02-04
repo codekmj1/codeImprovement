@@ -16,16 +16,14 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional(readOnly = true)
-class CustomThreadRepositoryImpl(
-    val em: EntityManager
-) : CustomThreadRepository, QueryDslSupport() {
+class CustomThreadRepositoryImpl: CustomThreadRepository, QueryDslSupport() {
     val thread = QThread.thread
     // 페이징 처리를 위해 Pageable 인자를 추가하고, 반환 타입을 Page로 변경
     override fun findAllByChannelAndMessage(
         channel: Channel, keyword: String, pageable: Pageable
     ): Page<Thread> {
         // Querydsl의 JPAQueryFactory를 사용하여 쿼리를 생성
-        val query = JPAQueryFactory(em)
+        val query = queryFactory
             .selectFrom(thread)
             .where(thread.channel.eq(channel)
                 .and(thread.message.contains(keyword)))
