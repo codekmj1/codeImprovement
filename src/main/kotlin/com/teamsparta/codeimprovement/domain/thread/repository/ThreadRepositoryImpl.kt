@@ -1,12 +1,10 @@
 package com.teamsparta.codeimprovement.domain.thread.repository
 
 import com.querydsl.core.types.dsl.Expressions
-import com.querydsl.jpa.impl.JPAQueryFactory
 import com.teamsparta.codeimprovement.domain.thread.infra.querydsl.QueryDslSupport
 import com.teamsparta.codeimprovement.domain.thread.model.Channel
 import com.teamsparta.codeimprovement.domain.thread.model.QThread
 import com.teamsparta.codeimprovement.domain.thread.model.Thread
-import jakarta.persistence.EntityManager
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
@@ -16,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional(readOnly = true)
-class CustomThreadRepositoryImpl: CustomThreadRepository, QueryDslSupport() {
+class ThreadRepositoryImpl: CustomThreadRepository, QueryDslSupport() {
     val thread = QThread.thread
     // 페이징 처리를 위해 Pageable 인자를 추가하고, 반환 타입을 Page로 변경
     override fun findAllByChannelAndMessage(
