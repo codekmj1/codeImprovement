@@ -28,6 +28,10 @@ repositories {
     mavenCentral()
 }
 
+val kotestVersion = "5.5.5" // 추가!
+
+val mockkVersion = "1.13.8" // 추가!
+
 val queryDslVersion = "5.0.0"
 
 dependencies {
@@ -49,7 +53,10 @@ dependencies {
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion") // 추가 !!
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion") // 추가 !!
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3") // 추가 !!
+    testImplementation("io.mockk:mockk:$mockkVersion") // 추가 !!
 }
 
 allOpen {
@@ -71,7 +78,7 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach() { // 변경 !!
     useJUnitPlatform()
 }
 

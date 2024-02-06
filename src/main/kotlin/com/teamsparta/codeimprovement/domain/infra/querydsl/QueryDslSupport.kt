@@ -1,4 +1,4 @@
-package com.teamsparta.codeimprovement.domain.thread.infra.querydsl
+package com.teamsparta.codeimprovement.domain.infra.querydsl
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager

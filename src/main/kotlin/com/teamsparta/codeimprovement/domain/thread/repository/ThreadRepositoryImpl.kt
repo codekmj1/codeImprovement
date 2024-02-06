@@ -1,7 +1,7 @@
 package com.teamsparta.codeimprovement.domain.thread.repository
 
 import com.querydsl.core.types.dsl.Expressions
-import com.teamsparta.codeimprovement.domain.thread.infra.querydsl.QueryDslSupport
+import com.teamsparta.codeimprovement.domain.infra.querydsl.QueryDslSupport
 import com.teamsparta.codeimprovement.domain.thread.model.Channel
 import com.teamsparta.codeimprovement.domain.thread.model.QThread
 import com.teamsparta.codeimprovement.domain.thread.model.Thread

@@ -4,7 +4,7 @@ import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.teamsparta.codeimprovement.domain.post.model.Post
 import com.teamsparta.codeimprovement.domain.post.model.QPost
-import com.teamsparta.codeimprovement.domain.thread.infra.querydsl.QueryDslSupport
+import com.teamsparta.codeimprovement.domain.infra.querydsl.QueryDslSupport
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
