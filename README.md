@@ -1,3 +1,6 @@
-코드 개선 과제
+## 코드 개선 과제
 
-24/01/30 - https://velog.io/@codekmj/240130-%EB%82%B4%EC%9D%BC%EB%B0%B0%EC%9B%80%EC%BA%A0%ED%94%84
+### 24/01/30 
+1. Controller Advice 로 예외 공통화 처리하기
+  
+2. Service 인터페이스와 구현체 분리하여 추상화 하기
