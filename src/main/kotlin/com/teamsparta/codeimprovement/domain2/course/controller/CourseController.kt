@@ -3,26 +3,36 @@ package com.teamsparta.codeimprovement.domain2.course.controller
 import com.teamsparta.codeimprovement.domain2.course.dto.CourseResponse
 import com.teamsparta.codeimprovement.domain2.course.dto.CreateCourseRequest
 import com.teamsparta.codeimprovement.domain2.course.dto.UpdateCourseRequest
+import com.teamsparta.codeimprovement.domain2.course.service.CourseService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/courses")
 @RestController
-class CourseController {
-
-    @PostMapping
-    fun createCourse(@RequestBody createCourseRequest: CreateCourseRequest): ResponseEntity<CourseResponse> {
-        TODO("not implemented")
-    }
+class CourseController(
+    private val courseService: CourseService
+) {
 
     @GetMapping()
     fun getCourseList(): ResponseEntity<List<CourseResponse>> {
-        TODO("not implemented")
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.getAllCourseList())
     }
 
     @GetMapping("/{courseId}")
     fun getCourse(@PathVariable courseId: Long): ResponseEntity<CourseResponse> {
-        TODO("not implemented")
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.getCourseById(courseId))
+    }
+
+    @PostMapping
+    fun createCourse(@RequestBody createCourseRequest: CreateCourseRequest): ResponseEntity<CourseResponse> {
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(courseService.createCourse(createCourseRequest))
     }
 
     @PutMapping("/{courseId}")
@@ -30,12 +40,17 @@ class CourseController {
         @PathVariable courseId: Long,
         @RequestBody updateCourseRequest: UpdateCourseRequest
     ): ResponseEntity<CourseResponse> {
-        TODO("not implemented")
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.updateCourse(courseId, updateCourseRequest))
     }
 
     @DeleteMapping("/{courseId}")
     fun deleteCourse(@PathVariable courseId: Long): ResponseEntity<Unit> {
-        TODO("not implemented")
+        courseService.deleteCourse(courseId)
+        return ResponseEntity
+            .status(HttpStatus.NO_CONTENT)
+            .build()
     }
 
 }

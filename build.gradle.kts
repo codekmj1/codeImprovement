@@ -57,6 +57,7 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion") // 추가 !!
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3") // 추가 !!
     testImplementation("io.mockk:mockk:$mockkVersion") // 추가 !!
+    implementation("com.h2database:h2")
 }
 
 allOpen {
