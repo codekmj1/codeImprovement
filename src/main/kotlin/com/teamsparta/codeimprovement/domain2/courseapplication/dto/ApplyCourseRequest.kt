@@ -1,4 +1,5 @@
 package com.teamsparta.codeimprovement.domain2.courseapplication.dto
 
-class CourseApplicationRequest {
-}
+data class ApplyCourseRequest(
+    val userId: Long,
+)
