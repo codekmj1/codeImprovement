@@ -4,8 +4,12 @@ import com.teamsparta.codeimprovement.domain2.course.dto.CourseResponse
 import com.teamsparta.codeimprovement.domain2.course.dto.CreateCourseRequest
 import com.teamsparta.codeimprovement.domain2.course.dto.UpdateCourseRequest
 import com.teamsparta.codeimprovement.domain2.course.service.CourseService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/courses")
@@ -15,10 +19,14 @@ class CourseController(
 ) {
 
     @GetMapping()
-    fun getCourseList(): ResponseEntity<List<CourseResponse>> {
+    @PreAuthorize("hasRole('TUTOR') or hasRole('STUDENT')")
+    fun getPaginatedCourseList(
+        @PageableDefault(size = 15, sort = ["id"]) pageable: Pageable,
+        @RequestParam(value = "status", required = false) status: String?
+    ): ResponseEntity<Page<CourseResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(courseService.getAllCourseList())
+            .body(courseService.getPaginatedCourseList(pageable, status))
     }
 
     @GetMapping("/{courseId}")
@@ -51,6 +59,13 @@ class CourseController(
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()
+    }
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('TUTOR') or hasRole('STUDENT')")
+    fun searchCourseList(@RequestParam(name = "title") title: String): ResponseEntity<List<CourseResponse>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.searchCourseList(title))
     }
 
 }

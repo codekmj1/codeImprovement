@@ -1,12 +1,22 @@
 package com.teamsparta.codeimprovement.domain2.course.repository
 
+import com.querydsl.core.BooleanBuilder
+import com.querydsl.core.types.Expression
+import com.querydsl.core.types.Order
+import com.querydsl.core.types.OrderSpecifier
+import com.querydsl.core.types.dsl.EntityPathBase
+import com.querydsl.core.types.dsl.PathBuilder
 import com.teamsparta.codeimprovement.domain.infra.querydsl.QueryDslSupport
 import com.teamsparta.codeimprovement.domain2.course.model.Course
+import com.teamsparta.codeimprovement.domain2.course.model.CourseStatus
 import com.teamsparta.codeimprovement.domain2.course.model.QCourse
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
 @Repository
-class CourseRepositoryImpl: CustomCourseRepository, QueryDslSupport() {
+class CourseRepositoryImpl : CustomCourseRepository, QueryDslSupport() {
 
     private val course = QCourse.course
 
@@ -16,4 +26,36 @@ class CourseRepositoryImpl: CustomCourseRepository, QueryDslSupport() {
             .fetch()
     }
 
+    override fun findByPageableAndStatus(pageable: Pageable, status: CourseStatus?): Page<Course> {
+
+        val whereClause = BooleanBuilder()
+        // 동적으로 where clause 생성
+        status?.let { whereClause.and(course.status.eq(status)) }
+
+        // count의 경우 order와 무관하기 때문에 바로 수행
+        val totalCount = queryFactory.select(course.count()).from(course).where(whereClause).fetchOne() ?: 0L
+
+        // 최종적으로 쿼리 수행
+        val contents = queryFactory.selectFrom(course)
+            .where(whereClause)
+            .offset(pageable.offset)
+            .limit(pageable.pageSize.toLong())
+            .orderBy(*getOrderSpecifier(pageable, course))
+            .fetch()
+
+        // Page 구현체 반환
+        return PageImpl(contents, pageable, totalCount)
+
+    }
+
+    private fun getOrderSpecifier(pageable: Pageable, path: EntityPathBase<*>): Array<OrderSpecifier<*>> {
+        val pathBuilder = PathBuilder(path.type, path.metadata)
+
+        return pageable.sort.toList().map { order ->
+            OrderSpecifier(
+                if (order.isAscending) Order.ASC else Order.DESC,
+                pathBuilder.get(order.property) as Expression<Comparable<*>>
+            )
+        }.toTypedArray()
+    }
 }

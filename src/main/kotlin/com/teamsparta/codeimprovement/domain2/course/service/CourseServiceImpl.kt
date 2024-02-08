@@ -9,6 +9,8 @@ import com.teamsparta.codeimprovement.domain2.course.model.CourseStatus
 import com.teamsparta.codeimprovement.domain2.course.model.toResponse
 import com.teamsparta.codeimprovement.domain2.course.repository.CourseRepository
 import com.teamsparta.codeimprovement.domain2.exception.ModelNotFoundException
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,8 +19,15 @@ import org.springframework.transaction.annotation.Transactional
 class CourseServiceImpl(
     private val courseRepository: CourseRepository
 ): CourseService {
-    override fun getAllCourseList(): List<CourseResponse> {
-        return courseRepository.findAll().map { it.toResponse() }
+    override fun getPaginatedCourseList(pageable: Pageable, status: String?): Page<CourseResponse> {
+        val courseStatus = when (status) {
+            "OPEN" -> CourseStatus.OPEN
+            "CLOSED" -> CourseStatus.CLOSED
+            null -> null
+            else -> throw IllegalArgumentException("The status is invalid");
+        }
+
+        return courseRepository.findByPageableAndStatus(pageable, courseStatus).map { it.toResponse() }
     }
 
     override fun getCourseById(courseId: Long): CourseResponse {
@@ -57,4 +66,6 @@ class CourseServiceImpl(
     override fun searchCourseList(title: String): List<CourseResponse> {
         return courseRepository.searchCourseListByTitle(title).map { it.toResponse() }
     }
+
+
 }
