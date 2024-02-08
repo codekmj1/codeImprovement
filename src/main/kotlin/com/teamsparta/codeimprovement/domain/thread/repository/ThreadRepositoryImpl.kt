@@ -27,7 +27,8 @@ class ThreadRepositoryImpl: CustomThreadRepository, QueryDslSupport() {
                 .and(thread.message.contains(keyword)))
 
         // 쿼리 결과의 전체 개수를 조회
-        val totalCount = query.fetchCount()
+        val firstThread: Thread? = query.fetchFirst()
+        val totalCount: Long = firstThread?.id ?: 0L
 
         // 페이징 처리를 위해 offset과 limit을 설정
         query.offset(pageable.offset)

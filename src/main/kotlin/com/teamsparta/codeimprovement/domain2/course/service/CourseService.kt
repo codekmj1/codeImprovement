@@ -16,4 +16,6 @@ interface CourseService {
     fun updateCourse(courseId: Long, request: UpdateCourseRequest): CourseResponse
 
     fun deleteCourse(courseId: Long)
+
+    fun searchCourseList(title: String): List<CourseResponse>
 }

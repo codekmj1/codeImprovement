@@ -1,4 +1,9 @@
 package com.teamsparta.codeimprovement.domain2.user.repository
 
-class UserRepository {
+import com.teamsparta.codeimprovement.domain2.user.model.User
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface UserRepository: JpaRepository<User, Long> {
+
+    fun existsByEmail(email: String): Boolean
 }
