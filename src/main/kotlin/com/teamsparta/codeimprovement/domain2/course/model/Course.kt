@@ -3,6 +3,7 @@ package com.teamsparta.codeimprovement.domain2.course.model
 import com.teamsparta.codeimprovement.domain2.course.dto.CourseResponse
 import com.teamsparta.codeimprovement.domain2.courseapplication.model.CourseApplication
 import com.teamsparta.codeimprovement.domain2.lecture.model.Lecture
+import com.teamsparta.codeimprovement.domain2.lecture.model.toResponse
 import jakarta.persistence.*
 
 
@@ -74,6 +75,7 @@ fun Course.toResponse(): CourseResponse {
         description = description,
         status = status.name,
         maxApplicants = maxApplicants,
-        numApplicants = numApplicants
+        numApplicants = numApplicants,
+        lectures = lectures.map { it.toResponse() }
     )
 }

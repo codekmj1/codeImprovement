@@ -10,6 +10,7 @@ import com.teamsparta.codeimprovement.domain.infra.querydsl.QueryDslSupport
 import com.teamsparta.codeimprovement.domain2.course.model.Course
 import com.teamsparta.codeimprovement.domain2.course.model.CourseStatus
 import com.teamsparta.codeimprovement.domain2.course.model.QCourse
+import com.teamsparta.codeimprovement.domain2.lecture.model.QLecture
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
@@ -27,7 +28,6 @@ class CourseRepositoryImpl : CustomCourseRepository, QueryDslSupport() {
     }
 
     override fun findByPageableAndStatus(pageable: Pageable, status: CourseStatus?): Page<Course> {
-
         val whereClause = BooleanBuilder()
         // 동적으로 where clause 생성
         status?.let { whereClause.and(course.status.eq(status)) }
@@ -35,15 +35,18 @@ class CourseRepositoryImpl : CustomCourseRepository, QueryDslSupport() {
         // count의 경우 order와 무관하기 때문에 바로 수행
         val totalCount = queryFactory.select(course.count()).from(course).where(whereClause).fetchOne() ?: 0L
 
+
+        val lecture = QLecture.lecture // 추가!!
+
         // 최종적으로 쿼리 수행
         val contents = queryFactory.selectFrom(course)
+            .leftJoin(course.lectures, lecture).fetchJoin() // 추가!!
             .where(whereClause)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .orderBy(*getOrderSpecifier(pageable, course))
             .fetch()
 
-        // Page 구현체 반환
         return PageImpl(contents, pageable, totalCount)
 
     }
