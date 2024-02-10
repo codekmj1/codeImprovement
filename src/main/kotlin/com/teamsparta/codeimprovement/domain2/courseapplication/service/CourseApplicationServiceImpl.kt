@@ -1,13 +1,6 @@
 package com.teamsparta.codeimprovement.domain2.courseapplication.service
 
-import com.teamsparta.codeimprovement.domain2.course.dto.CourseResponse
-import com.teamsparta.codeimprovement.domain2.course.dto.CreateCourseRequest
-import com.teamsparta.codeimprovement.domain2.course.dto.UpdateCourseRequest
-import com.teamsparta.codeimprovement.domain2.course.model.Course
-import com.teamsparta.codeimprovement.domain2.course.model.CourseStatus
-import com.teamsparta.codeimprovement.domain2.course.model.toResponse
 import com.teamsparta.codeimprovement.domain2.course.repository.CourseRepository
-import com.teamsparta.codeimprovement.domain2.course.service.CourseService
 import com.teamsparta.codeimprovement.domain2.courseapplication.dto.ApplyCourseRequest
 import com.teamsparta.codeimprovement.domain2.courseapplication.dto.CourseApplicationResponse
 import com.teamsparta.codeimprovement.domain2.courseapplication.dto.UpdateApplicationStatusRequest

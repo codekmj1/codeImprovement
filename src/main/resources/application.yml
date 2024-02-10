@@ -1,5 +1,3 @@
-
-
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
@@ -10,15 +8,17 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-      format_sql: true
-      highlight_sql: true
-      use_sql_comments: true
-      default_batch_fetch_size: 500
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 500
   h2:
     console:
       enabled: true
 logging:
   level:
+    root: INFO
+    com.teamsparta.codeimprovement.domain2.course.repository: DEBUG
     org:
       hibernate:
         SQL: debug

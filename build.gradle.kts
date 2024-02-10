@@ -58,6 +58,8 @@ dependencies {
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3") // 추가 !!
     testImplementation("io.mockk:mockk:$mockkVersion") // 추가 !!
     implementation("com.h2database:h2")
+
+    implementation ("io.github.microutils:kotlin-logging:3.0.5")
 }
 
 allOpen {
@@ -79,7 +81,7 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test>().configureEach() { // 변경 !!
+tasks.withType<Test>().configureEach { // 변경 !!
     useJUnitPlatform()
 }
 

@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 @EnableJpaRepositories
-class CourseRegistrationApplication
+class CodeImprovementApplication
 
 fun main(args: Array<String>) {
-    runApplication<CourseRegistrationApplication>(*args)
+    runApplication<CodeImprovementApplication>(*args)
 }

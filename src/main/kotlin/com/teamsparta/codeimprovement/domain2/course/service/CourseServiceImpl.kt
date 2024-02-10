@@ -24,7 +24,7 @@ class CourseServiceImpl(
             "OPEN" -> CourseStatus.OPEN
             "CLOSED" -> CourseStatus.CLOSED
             null -> null
-            else -> throw IllegalArgumentException("The status is invalid");
+            else -> throw IllegalArgumentException("The status is invalid")
         }
 
         return courseRepository.findByPageableAndStatus(pageable, courseStatus).map { it.toResponse() }
