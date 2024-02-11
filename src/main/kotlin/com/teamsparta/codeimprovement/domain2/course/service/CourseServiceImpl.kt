@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class CourseServiceImpl(
     private val courseRepository: CourseRepository
-): CourseService {
+) : CourseService {
     override fun getPaginatedCourseList(pageable: Pageable, status: String?): Page<CourseResponse> {
         val courseStatus = when (status) {
             "OPEN" -> CourseStatus.OPEN

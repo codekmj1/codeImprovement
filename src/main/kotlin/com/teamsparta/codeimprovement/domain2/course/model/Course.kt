@@ -66,11 +66,12 @@ class Course(
         courseApplications.add(courseApplication)
     }
 
+
 }
 
 fun Course.toResponse(): CourseResponse {
     return CourseResponse(
-        id = id!!,
+        id = id ?: throw IllegalStateException("Course id should not be null"),
         title = title,
         description = description,
         status = status.name,

@@ -11,6 +11,7 @@ import com.teamsparta.codeimprovement.domain2.course.model.Course
 import com.teamsparta.codeimprovement.domain2.course.model.CourseStatus
 import com.teamsparta.codeimprovement.domain2.course.model.QCourse
 import com.teamsparta.codeimprovement.domain2.lecture.model.QLecture
+import jakarta.persistence.EntityManager
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
@@ -20,6 +21,10 @@ import org.springframework.stereotype.Repository
 class CourseRepositoryImpl : CustomCourseRepository, QueryDslSupport() {
 
     private val course = QCourse.course
+
+    fun injectEntityManager(entityManager: EntityManager) {
+        this.entityManager = entityManager
+    }
 
     override fun searchCourseListByTitle(title: String): List<Course> {
         return queryFactory.selectFrom(course)

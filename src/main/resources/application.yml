@@ -18,7 +18,8 @@ spring:
 logging:
   level:
     root: INFO
-    com.teamsparta.codeimprovement.domain2.course.repository: DEBUG
+    com.teamsparta.codeimprovement.domain2.course.repository: INFO
+    com.teamsparta.codeimprovement.domain2.course.service: INFO
     org:
       hibernate:
         SQL: debug
