@@ -58,3 +58,51 @@ QueryDSL을 사용하여 다양한 검색 조건에 따른 동적 쿼리를 처�
 
 ## domain2 패키지 : 24/02/06~24/02/13 과제
 
+### 24/02/06
+#### Controller 테스트 코드 작성하기
+이 테스트 코드는 HTTP POST 요청을 "/courses" 경로에 보내는 것으로, 새로운 Course를 생성하는 API를 테스트하는 목적을 가지고 있습니다.
+
+테스트 시나리오:
+1. 새로운 Course를 생성하려고 할 때라는 상황을 설정합니다(Given).
+
+2. POST /courses를 호출하면 이라는 행동을 정의합니다(When).
+
+3. 그 결과로 새로운 Course가 생성되어야 한다는 결과를 예측합니다(Then).
+
+테스트 코드 동작 순서:
+- 먼저 CreateCourseRequest 객체를 생성하여 새로운 Course의 상세 정보(title, description 등)를 설정합니다.
+
+- CourseService의 createCourse() 메서드를 호출할 때 위에서 생성한 CreateCourseRequest 객체를 반환하도록 mock 설정합니다.
+
+- mockMvc.perform() 메서드를 사용하여 실제 HTTP POST 요청을 "/courses" 경로에 보냅니다. 이때 CreateCourseRequest 객체를 JSON 형식으로 변환하여 요청 본문에 포함시킵니다.
+
+- 반환된 HTTP 응답의 상태 코드가 201(Created)인지 확인합니다.
+
+- 반환된 HTTP 응답의 본문을 CourseResponse 객체로 변환하고, 이 객체가 기대한 값과 일치하는지 확인합니다.
+
+- 코드 : https://github.com/codekmj1/codeImprovement/blob/master/src/test/kotlin/com/teamsparta/codeimprovement/domain2/course/controller/CourseControllerTest.kt
+### 24/02/07
+#### Service 테스트 코드 작성하기
+특정 Course 조회: Course 목록이 존재하지 않을 때 특정 Course를 요청하면 ModelNotFoundException이 발생해야 한다는 시나리오를 테스트하고 있습니다. courseService.getCourseById(courseId) 메소드가 특정 ID의 코스를 찾지 못했을 때, 적절한 예외를 발생시키는지 확인하는 테스트입니다.
+
+*테스트 방식*:
+- courseRepository.findByIdOrNull(any())가 null을 반환하도록 설정합니다. 이는 코스 목록이 비어 있음을 시뮬레이션합니다.
+
+- courseService.getCourseById(courseId)를 호출하고, ModelNotFoundException이 발생하는지 확인합니다.
+
+새로운 Course 추가: 새로운 Course를 추가하려고 할 때 addCourse() 메소드를 호출하면 새로운 Course가 저장되어야 한다는 시나리오를 테스트하고 있습니다. courseService.createCourse(newCourse) 메소드가 새로운 코스를 정상적으로 추가하고, 그 결과를 반환하는지 확인하는 테스트입니다.
+
+테스트 방식:
+- 새로운 CreateCourseRequest 객체를 생성하고, courseRepository.save(any())가 이 코스를 반환하도록 설정합니다.
+
+- courseService.createCourse(newCourse)를 호출하고, 반환된 객체가 예상대로인지 확인합니다. 이를 위해 savedCourse의 ID와 title이 반환된 객체의 ID와 title과 일치하는지 확인합니다.
+
+- 그리고 반환된 객체의 ID가 null이 아닌지 확인합니다. 이는 새 코스가 정상적으로 저장되었음을 나타냅니다.
+
+- 코드 : https://github.com/codekmj1/codeImprovement/blob/master/src/test/kotlin/com/teamsparta/codeimprovement/domain2/course/service/CourseServiceTest.kt
+
+### 24/02/08
+#### Repository 테스트 코드 작성하기
+
+
+- 코드 : https://github.com/codekmj1/codeImprovement/blob/master/src/test/kotlin/com/teamsparta/codeimprovement/domain2/course/repository/CourseRepositoryTest.kt
