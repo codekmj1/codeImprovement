@@ -1,7 +1,6 @@
 # 코드 개선 과제
 
 ## domain 패키지 : 24/01/30~24/02/05 과제
-## domain2 패키지 : 24/02/06~24/02/13 과제
 
 ### 24/01/30 
 #### 1. Controller Advice 로 예외 공통화 처리하기
@@ -55,3 +54,7 @@ QueryDSL을 사용하여 다양한 검색 조건에 따른 동적 쿼리를 처�
 4. PostRepository 인터페이스가 커스텀 인터페이스를 상속받도록 설정
 
 - 코드: https://github.com/codekmj1/codeImprovement/tree/master/src/main/kotlin/com/teamsparta/codeimprovement/domain/post
+
+
+## domain2 패키지 : 24/02/06~24/02/13 과제
+
